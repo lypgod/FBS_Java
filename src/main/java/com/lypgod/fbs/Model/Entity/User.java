@@ -19,6 +19,7 @@ public class User {
     @NotBlank(message = "密码不能为空")
 	private String password;
 
+
     public Integer getId() {
         return id;
     }
@@ -34,7 +35,6 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
 
     public String getPassword() {
         return password;

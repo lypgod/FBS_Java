@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ExceptionResponse {
     private Integer code;
-    private List<String> message;
+    private List<String> messages;
 
     public Integer getCode() {
         return code;
@@ -14,20 +14,20 @@ public class ExceptionResponse {
         this.code = code;
     }
 
-    public List<String> getMessage() {
-        return message;
+    public List<String> getMessages() {
+        return messages;
     }
 
-    public void setMessage(List<String> message) {
-        this.message = message;
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
-    ExceptionResponse(Integer code, List<String> message) {
+    ExceptionResponse(Integer code, List<String> messages) {
         this.code = code;
-        this.message = message;
+        this.messages = messages;
     }
 
-    static ExceptionResponse create(Integer code, List<String> message) {
-        return new ExceptionResponse(code, message);
+    static ExceptionResponse create(Integer code, List<String> messages) {
+        return new ExceptionResponse(code, messages);
     }
 }

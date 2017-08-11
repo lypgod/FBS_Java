@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -20,9 +19,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ExceptionResponse generalException(Exception e) {
         e.printStackTrace();
-        List<String> message = new ArrayList<>();
-        message.add(e.getMessage());
-        return new ExceptionResponse(500, message);
+        return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), Collections.singletonList(e.getMessage()));
     }
 
     @ExceptionHandler(ValidationException.class)
@@ -32,10 +29,10 @@ public class GlobalExceptionHandler {
         return e.getExceptionResponse();
     }
 
-    @ExceptionHandler(LoginException.class)
+    @ExceptionHandler(LoginFailedException.class)
     @ResponseStatus(value= HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ExceptionResponse loginException(LoginException e) {
+    public ExceptionResponse loginException(LoginFailedException e) {
         return e.getExceptionResponse();
     }
 
@@ -43,6 +40,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value= HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ExceptionResponse authenticationException(AuthenticationException e) {
+        return e.getExceptionResponse();
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(value= HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ExceptionResponse notFoundException(NotFoundException e) {
         return e.getExceptionResponse();
     }
 }
