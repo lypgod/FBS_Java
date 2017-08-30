@@ -67,4 +67,15 @@ public class UserService {
         if (!resultUser.getPassword().equals(user.getPassword())) throw new LoginFailedException("密码错误！");
         return resultUser;
     }
+    public Boolean checkRegistered(String userName) {
+        return userRepository.findByUserName(userName) == null;
+    }
+
+    public User register(User user) {
+//        User resultUser = userRepository.findByUserName(user.getUserName());
+//        if (resultUser == null) throw new LoginFailedException("用户名未找到！");
+//        if (!resultUser.getPassword().equals(user.getPassword())) throw new LoginFailedException("密码错误！");
+        return user;
+    }
+
 }

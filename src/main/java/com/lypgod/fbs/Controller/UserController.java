@@ -61,8 +61,16 @@ public class UserController {
         return userService.saveUsers(users.getUsers());
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public User loginUser(User user) {
+    @RequestMapping(value = "/checkRegistered/{userName}", method = RequestMethod.GET)
+    public Boolean checkRegistered(@PathVariable(value = "userName") String userName) {
+        return userService.checkRegistered(userName);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public User loginUser(@RequestBody @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException(bindingResult);
+        }
         return userService.login(user);
     }
 }
